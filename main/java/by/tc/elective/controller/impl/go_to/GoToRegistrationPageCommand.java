@@ -1,0 +1,22 @@
+package by.tc.elective.controller.impl.go_to;
+
+import by.tc.elective.controller.Command;
+
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+
+public class GoToRegistrationPageCommand implements Command {
+
+    @Override
+    public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/registration.jsp");
+        String errorMessage = request.getParameter("errorMessage");
+        if(!errorMessage.isEmpty()) {
+            request.setAttribute("errorMessage", "Something is wrong. Please, try again");
+        }
+        dispatcher.forward(request, response);
+    }
+}
